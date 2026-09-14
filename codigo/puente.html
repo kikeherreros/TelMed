@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- VERSIÓN: 2026-08-13 — puente entre checkin.html (intranet) y codigo.html (internet) -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ingreso — Check-in / Código</title>
+<style>
+  :root{ --bg:#0F1720; --surface:#16212C; --text:#EDEFF2; --muted:#8B97A5; --azul:#378ADD; --ambar:#EF9F27; --radius:8px; }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; padding:24px 18px; text-align:center;}
+  h1{font-size:1.05rem; font-weight:600; margin:0 0 6px;}
+  p{color:var(--muted); font-size:0.85rem; margin:0 0 24px;}
+  .btn{display:block; width:100%; max-width:420px; margin:0 auto 14px; padding:18px 16px; border-radius:var(--radius); border:none; font-size:1rem; font-weight:600; cursor:pointer; text-decoration:none;}
+  .btn-lista{background:var(--azul); color:#04121F;}
+  .btn-codigo{background:var(--ambar); color:#2A1A00;}
+  .btn small{display:block; font-weight:400; font-size:0.78rem; margin-top:4px; opacity:0.85;}
+  #estado{max-width:420px; margin:0 auto 20px; font-size:0.8rem; color:var(--muted);}
+</style>
+</head>
+<body>
+
+<h1>¿Qué necesitás hacer?</h1>
+<p>Elegí una opción — si estás en la WiFi del hospital, "Ver lista" funciona. Si no, usá "Reportar código".</p>
+
+<div id="estado">Intentando conectar con el servidor del hospital…</div>
+
+<a class="btn btn-lista" id="btnLista" href="#">
+  Ver lista de pacientes
+  <small>Requiere WiFi del hospital</small>
+</a>
+
+<a class="btn btn-codigo" href="codigo.html">
+  Reportar Código Ictus / Infarto
+  <small>Funciona con cualquier internet</small>
+</a>
+
+<script>
+// ─── CONFIGURACIÓN ───────────────────────────────
+// Cambiar acá si el nombre/IP del servidor del hospital cambia.
+const SERVIDOR_INTRANET = 'http://DTIC-DSI-033-HC:3001';
+// ─────────────────────────────────────────────────
+
+const params = new URLSearchParams(location.search);
+const loc = params.get('loc') || '';
+const urlLista = `${SERVIDOR_INTRANET}/checkin${loc ? '?loc=' + encodeURIComponent(loc) : ''}`;
+
+document.getElementById('btnLista').href = urlLista;
+
+// Intento de redirección automática: si el celular está en la red del hospital,
+// puede saltar directo sin que la persona tenga que tocar nada. Si falla o tarda,
+// los 2 botones ya están visibles desde el primer segundo — nadie se queda esperando.
+const img = new Image();
+let resuelto = false;
+img.onload = () => {
+  if (resuelto) return;
+  resuelto = true;
+  document.getElementById('estado').textContent = 'Servidor del hospital detectado, redirigiendo…';
+  location.href = urlLista;
+};
+img.onerror = () => {
+  // La imagen de prueba no existe (es esperado) — pero si esto dispara rápido,
+  // igual significa que el servidor respondió. Si nunca dispara, es que no hay red.
+  if (resuelto) return;
+  resuelto = true;
+  document.getElementById('estado').textContent = 'Servidor del hospital detectado, redirigiendo…';
+  location.href = urlLista;
+};
+img.src = `${SERVIDOR_INTRANET}/favicon.ico?_=${Date.now()}`;
+
+setTimeout(() => {
+  if (resuelto) return;
+  document.getElementById('estado').textContent = 'No se detecta el servidor del hospital — elegí una opción abajo.';
+}, 2500);
+</script>
+
+</body>
+</html>
