@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- VERSIÓN: 2026-08-13 — puente entre checkin.html (intranet) y codigo.html (internet) -->
+<!-- VERSIÓN: 2026-09-22 COPILOT— puente entre checkin.html (intranet) y codigo.html (internet) -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -63,8 +63,7 @@ img.onerror = () => {
   // igual significa que el servidor respondió. Si nunca dispara, es que no hay red.
   if (resuelto) return;
   resuelto = true;
-  document.getElementById('estado').textContent = 'Servidor del hospital detectado, redirigiendo…';
-  location.href = urlLista;
+  document.getElementById('estado').textContent = 'No se detecta el servidor del hospital. Use "Reportar Código Ictus / Infarto".';
 };
 img.src = `${SERVIDOR_INTRANET}/favicon.ico?_=${Date.now()}`;
 
