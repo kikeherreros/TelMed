@@ -43,7 +43,7 @@
   section h2{font-size:0.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 10px; font-weight:600;}
   label{display:block; font-size:0.82rem; color:var(--muted); margin-bottom:4px;}
   .field{margin-bottom:12px;}
-  input, textarea, select{width:100%; background:var(--surface); border:1px solid var(--line); color:var(--text); padding:10px 11px; border-radius:var(--radius); font-size:0.95rem; font-family:inherit[...]
+  input, textarea, select{width:100%; background:var(--surface); border:1px solid var(--line); color:var(--text); padding:10px 11px; border-radius:var(--radius); font-size:0.95rem; font-family:inherit;}
   input:focus, textarea:focus, select:focus{outline:none; border-color:var(--accent);}
   textarea{resize:vertical; min-height:56px;}
   .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
@@ -51,7 +51,7 @@
   .row-inline{display:flex; gap:8px; align-items:flex-end;}
   .row-inline .field{flex:1; margin-bottom:0;}
   .btn-mini{background:var(--surface-2); color:var(--text); border:1px solid var(--line); border-radius:var(--radius); padding:10px 12px; font-size:0.82rem; cursor:pointer; white-space:nowrap;}
-  #preview{font-family:ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace; font-size:0.82rem; white-space:pre-wrap; background:var(--surface); border:1px solid var(--line); border-radius:var[...]
+  #preview{font-family:ui-monospace,SFMono-Regular,Consolas,"Courier New",monospace; font-size:0.82rem; white-space:pre-wrap; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:12px; color:var(--text); min-height:180px;}
   .actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
   .btn{flex:1; min-width:140px; padding:13px 14px; border-radius:var(--radius); border:none; font-size:0.92rem; font-weight:600; cursor:pointer; color:#0F1720;}
   .btn-send{background:var(--accent);}
@@ -66,7 +66,7 @@
   #qrWrap img{background:#fff; padding:6px; border-radius:var(--radius);}
   #qrWrap .qrmeta{color:var(--muted); font-size:0.82rem;}
   .note{font-size:0.78rem; color:var(--muted); margin-top:8px;}
-  .toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--surface-2); border:1px solid var(--line); color:var(--text); padding:10px 16px; border-radius:var(--radius)[...]
+  .toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--surface-2); border:1px solid var(--line); color:var(--text); padding:10px 16px; border-radius:var(--radius); font-size:0.85rem; opacity:0; pointer-events:none; transition:opacity .2s;}
   .toast.show{opacity:1;}
 </style>
 </head>
@@ -258,7 +258,7 @@
       <button class="btn btn-send" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
       <button class="btn btn-copy" onclick="copiarMensaje()">Copiar texto</button>
     </div>
-    <p class="note">WhatsApp no permite abrir un grupo específico con el mensaje ya escrito: el botón abre WhatsApp con el texto listo y usted elige el grupo de destino (previamente unido mediante e[...]
+    <p class="note">WhatsApp no permite abrir un grupo específico con el mensaje ya escrito: el botón abre WhatsApp con el texto listo y usted elige el grupo de destino (previamente unido mediante el QR de su localidad).</p>
   </section>
 
   <!-- COMÚN -->
